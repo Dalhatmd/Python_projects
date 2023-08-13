@@ -11,4 +11,5 @@ Finds largest number from 3 numbers. pretty simple</li>
 
 <li><b>repititions</b>: removes any repititions from a list</li>
 
+<li><b>is_prime</b>: function that checks if a number is a prime number </li>
 </ul>
