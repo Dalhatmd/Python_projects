@@ -20,7 +20,7 @@ def enter_move(board):
     for j in range(len(board[i])):
       if board[i][j] == move:
         board[i][j] = 'O'
-        return board[i][j]
+        return (i, j)
     
   	
     	
@@ -29,11 +29,12 @@ def enter_move(board):
 
 def make_list_of_free_fields(board):
   free_list = []
-  for i in range(len(board)):
-    for j in range(len(board[i])):
-      if board[i][j] in range(1, 9):
+  for i in range(3):
+    for j in range(3):
+      if board[i][j] != 'X' and board[i][j] != 'O':
         free_list.append((i, j))
   return free_list
+  
 
 
 
@@ -48,7 +49,7 @@ def draw_move(board):
     for j in range(len(board[i])):
       if board[i][j] == comp_move:
         board[i][j] = 'X'
-  return board[i][j]
+        return (i, j)
 
 board = []
 count = 1
@@ -62,14 +63,13 @@ for i in range(3):
 
 
 
-display_board(board)
-player = enter_move(board)
-print(player)
-"""display_board(board)
-comp = draw_move(board)
-print(comp)
-display_board(board)
-free = make_list_of_free_fields(board)
-print(free)"""
+while True:
+  display_board(board)
+  comp = draw_move(board)
+  player = enter_move(board)
+  free = make_list_of_free_fields(board)
+  if player not in free and comp not in free:
+    print("This square is not available. pick another")
+  
   
   
