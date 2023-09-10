@@ -10,19 +10,22 @@ def display_board(board):
 
 
 def enter_move(board):
-  try:
-    move = int(input("Enter a number corresponding to a free square: "))
-    if move not in range(0, 10):
-      print("Enter a number between 1 and 9")
-  except ValueError:
-      print("Enter a number please")
-  for i in range(len(board)):
-    for j in range(len(board[i])):
-      if board[i][j] == move:
-        board[i][j] = 'O'
-        return (i, j)
-    
-  	
+    ok = False
+    while not ok:
+        move = input()
+        ok = len(move) == 1 and int(move) in range(1,10)
+        if not ok:
+            print("Bad move")
+            print("Re-enter your move")
+        move = int(move) - 1
+        col = move % 3
+        row = move // 3
+        move = board[row][col]
+        if move in ('X', 'O'):
+            print ("This square is occupied")
+            print("Please Re-enter")
+
+
     	
     
 
@@ -32,7 +35,7 @@ def make_list_of_free_fields(board):
   for i in range(3):
     for j in range(3):
       if board[i][j] != 'X' and board[i][j] != 'O':
-        free_list.append((i, j))
+        free_list.append(board[i][j])
   return free_list
   
 
@@ -44,12 +47,7 @@ def make_list_of_free_fields(board):
 
 
 def draw_move(board):
-  comp_move = random.randrange(0, 10)
-  for i in range(len(board)):
-    for j in range(len(board[i])):
-      if board[i][j] == comp_move:
-        board[i][j] = 'X'
-        return (i, j)
+  
 
 board = []
 count = 1
@@ -61,15 +59,13 @@ for i in range(3):
     count += 1
   board.append(row)
 
-
-
-while True:
+play = True
+while play:
   display_board(board)
-  comp = draw_move(board)
   player = enter_move(board)
+  comp = draw_move(board)
+  print(player)
   free = make_list_of_free_fields(board)
-  if player not in free and comp not in free:
-    print("This square is not available. pick another")
   
   
   
